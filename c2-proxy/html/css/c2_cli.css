@@ -1,0 +1,102 @@
+/* CLI window */
+body {
+    background-color: gray;
+    font-family: monospace;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  #cli-details {
+    color: black;
+    margin-bottom: 20px;
+  }
+  .bold-text {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .activity-status {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .sid-active {
+    background-color: green;
+  }
+  .sid-inactive {
+    background-color: red;
+  }
+  #cli-window {
+    color: white;
+    background-color: black;
+    border: 6px solid green;
+    padding: 10px;
+    height: 500px; 
+    width: 1200px;
+    overflow-y: auto;
+  }
+  .input-line::before {
+    content: ""; /* CLI prompt symbol */
+  }
+  input[type="text"] {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: monospace;
+    width: calc(100% - 20px);
+    padding: 5px;
+    margin: 0;
+    outline: none;
+  }
+
+  .response {
+    color: green;
+  }
+
+  /* $ type a command */
+  .input-line {
+    display: flex; 
+  }
+
+  .cli-symbol {
+    color: white;
+    margin-right: 5px; 
+    white-space: nowrap;
+  }
+
+  /* online, offline text */
+  #cli-container {
+    position: relative;
+  }
+  
+  .status-container {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+  }
+  
+  .green-dash, .red-dash {
+    width: 50px;
+    height: 10px;
+    display: inline-block;
+  }
+  
+  .green-dash {
+    background-color: green;
+  }
+  
+  .red-dash {
+    background-color: red;
+  }
+  
+  .status-text {
+    display: inline-block;
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+    margin-left: 5px;
+    vertical-align: top;
+  }

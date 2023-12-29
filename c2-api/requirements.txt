@@ -1,0 +1,8 @@
+flask==3.0.0
+Flask-Migrate==4.0.5
+Flask-SQLAlchemy==3.0.2
+waitress==2.1.2
+requests==2.31.0
+psycopg2-binary==2.9.9
+PyYAML==6.0
+redis==5.0.1

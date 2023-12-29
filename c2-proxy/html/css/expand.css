@@ -1,0 +1,7 @@
+td.details-control {
+    background: url('../logo/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../logo/details_close.png') no-repeat center center;
+}

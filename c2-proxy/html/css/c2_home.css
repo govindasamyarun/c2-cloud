@@ -1,0 +1,48 @@
+/* home window */
+.well-block {
+    background-color: #fff;
+    border: 1px solid #e9e6e8;
+    padding: 40px;
+  }
+
+  .computer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .computer {
+    flex: 0 0 calc(33.33% - 20px);
+    margin-bottom: 20px;
+  }
+  
+  .computer img {
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+.status-text {
+  color: black;
+  margin-top: 10px;
+}
+
+/* online status */
+.online .status-text::before {
+  content: '';
+  display: block;
+  color: #6eff70;
+}
+
+/* offline status */
+.offline .status-text::before {
+  content: '';
+  display: block;
+  color: #ff6b6b;
+}

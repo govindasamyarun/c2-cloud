@@ -1,0 +1,86 @@
+version: '3'
+
+services:
+
+  c2-api-service:
+    container_name: c2-api-service
+    hostname: c2-api-service
+    build:
+      context: c2-api/.
+      dockerfile: Dockerfile
+    ports:
+     - 8000:8000
+     - 8888:8888
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.2
+    depends_on:
+      - c2-db-service
+      - c2-redis-service
+
+  c2-db-service:
+    container_name: c2-db-service
+    hostname: c2-db-service
+    image: postgres:12.12
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: c2redteam
+      POSTGRES_PASSWORD: sEPkp7eK7q3xgV
+    volumes:
+      - ./data-volume/postgres_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.3
+
+  c2-redis-service:
+    container_name: c2-redis-service
+    hostname: c2-redis-service
+    image: redis:latest
+    volumes:
+      - ./data-volume/redis:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf # Mount the Redis config file
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"] # Use the custom config file
+    ports:
+      - "6379:6379"
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.4
+
+  c2-ws-service:
+    container_name: c2-ws-service
+    hostname: c2-ws-service
+    build:
+      context: c2-ws/.
+      dockerfile: Dockerfile
+    ports:
+     - 9999:9999
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.5
+    depends_on:
+      - c2-db-service
+      - c2-redis-service
+
+  c2-proxy-service:
+    container_name: c2-proxy-service
+    hostname: c2-proxy-service
+    build:
+      context: c2-proxy/.
+      dockerfile: Dockerfile
+    ports:
+     - 9000:9000
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.6
+    depends_on:
+      - c2-db-service
+      - c2-redis-service
+      - c2-api-service
+
+networks:
+  customnetwork:
+    ipam:
+     config:
+       - subnet: 172.24.0.0/16

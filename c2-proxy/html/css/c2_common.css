@@ -1,0 +1,30 @@
+#entries {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 30px;
+}
+
+#ud {
+  text-decoration: none;
+}
+
+div.dt-buttons {
+  float: left;
+  color: green;
+}
+
+#mTable thead th {
+  border-bottom: 0;
+}
+
+#mTable tfoot th {
+  border-top: 0;
+}
+
+#navarea a {
+  color: black;
+}
+
+.navbar-area .navbar .navbar-nav .nav-item a::before {
+  background-color: black;
+}
