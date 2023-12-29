@@ -20,6 +20,7 @@ https://youtu.be/hrHT_RDcGj8
 💾 **Postgres DB:** Ensuring persistent storage for seamless continuity. <br>
 
 ## Architecture 
+<img width="1354" alt="c2_cloud_architecture_diagram" src="https://github.com/govindasamyarun/c2-cloud/assets/69586504/8349b580-89de-44dd-b18a-aa67d52ba39d">
 
 ## Application setup
 
