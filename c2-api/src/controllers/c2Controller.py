@@ -26,7 +26,7 @@ def init_client(session_id, host_name, user_name):
         session_data = {"session_id": session_id, "session_type": "http", "os_type": "unix", "created_at": dt, "host_name": host_name, "port": "0", "status": "Connected", "shell": "$", "user_name": user_name, "commands": commands_fifo_list}
         try:
             # write to redis & db
-            redis_client.publish_message(common.channel_session, json.dumps(session_data))
+            redis_client.publish_message(common.redis_channel_session, json.dumps(session_data))
             redis_client.write_session_data(session_key, session_data)
             db_client.write_session_data(session_data)
         except Exception as e:
@@ -67,7 +67,7 @@ def command_control(session_id, req_method):
             payload_data = {"session_id": session_id, "shell": "$", "command": executed_command, "command_date": dt, "response": response, "response_date": dt}
             redis_client.write_payload_data(payload_key, payload_data)
             db_client.write_payload_data(payload_data)
-            redis_client.publish_message(common.channel_payload, json.dumps(payload_data))
+            redis_client.publish_message(common.redis_channel_payload, json.dumps(payload_data))
             # to handle new commands received during processing of the first command 
             update_redis_session_data = redis_client.get_data(session_key)
             new_commands = update_redis_session_data["commands"]
