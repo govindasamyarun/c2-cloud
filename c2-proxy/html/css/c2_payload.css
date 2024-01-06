@@ -39,6 +39,18 @@
     justify-content: space-between;
     margin-bottom: 10px;
   }
+  .os-type {
+    width: 60px;
+    height: 80px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
   .type-item {
     width: 60px;
     height: 80px;
