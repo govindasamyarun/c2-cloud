@@ -3,6 +3,7 @@
 # Author: Arun Govindasamy
 # References: https://github.com/t3l3machus/Villain
 
+import os
 import json
 from flask import request, redirect, Response, make_response, jsonify, session, render_template
 from libs.dbOperations import DBOperations
@@ -88,3 +89,31 @@ def allrecords():
     for record in records:
         result["values"].append(record)
     return str(result)
+
+def list_files():
+    logger_instance.info('list_files')
+    files_dict = {}
+    files_list = []
+    directory = "/usr/src/app/src/exploits"
+    if os.path.exists(directory):
+        for filename in os.listdir(directory):
+            if os.path.isfile(os.path.join(directory, filename)):
+                files_list.append({"file_name": filename})
+    else:
+        logger_instance.info("list_files - Directory does not exist")
+    print(f"files_list={files_list}")
+    
+    return files_list
+
+def file_upload():
+    if 'file' not in request.files:
+        return 'No file part'
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No selected file'
+
+    if file:
+        file.save(os.path.join('/usr/src/app/src/exploits', file.filename))
+        return 'File successfully uploaded'

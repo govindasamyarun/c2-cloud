@@ -14,9 +14,15 @@ if (match && match[0]) {
   var redisSessionsUrl = `${url}/api/redis/sessions/${url_session_id}`
   var ipRegex = /^(https?:\/\/)(\d+\.\d+\.\d+\.\d+)/;
   var ipMatch = currentUrl.match(ipRegex);
+  // hostname with port number 
+  var hostPortRegex = /([^:]+)\:/;
+  var hostPortMatch = match[2].match(hostPortRegex);
   if (ipMatch && ipMatch[2]) {
     var wsPayloadUrl = 'ws://' + ipMatch[2] + ':9999/payload'
     var wsSessionUrl = 'ws://' + ipMatch[2] + ':9999/sessions'
+  } else if (hostPortMatch && hostPortMatch[1]) {
+    var wsPayloadUrl = 'ws://' + hostPortMatch[1] + ':9999/payload'
+    var wsSessionUrl = 'ws://' + hostPortMatch[1] + ':9999/sessions'
   } else {
     var wsPayloadUrl = 'ws://' + match[2] + ':9999/payload'
     var wsSessionUrl = 'ws://' + match[2] + ':9999/sessions'
@@ -187,10 +193,10 @@ wsSession.onopen = (event) => {
         // set session ID, client IP & port 
         const shellNameSpan = document.getElementById('shell-name');
         const hostNameSpan = document.getElementById('host-name');
-        const portNameSpan = document.getElementById('port');
+        const osNameSpan = document.getElementById('os-type');
         shellNameSpan.textContent = url_session_id;
         hostNameSpan.textContent = arrayOfObjects[0]["host_name"];
-        portNameSpan.textContent = arrayOfObjects[0]["port"];
+        osNameSpan.textContent = arrayOfObjects[0]["os_type"];
         if (arrayOfObjects[0]["status"] == "Disconnected") {
           const cliWindow = document.getElementById('cli-window');
           const userInput = document.getElementById('user-input');

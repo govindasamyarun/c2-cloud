@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 from models.c2model import c2DbHandler
 from routes.webRoute import webRoute
 from routes.apiRoute import apiRoute
+from routes.downloadRoute import downloadRoute
 from routes.c2Route import c2Route
 from waitress import serve
 from c2tcp import C2TcpServer
@@ -39,6 +40,7 @@ with app.app_context():
 # Routes to the api controller 
 app.register_blueprint(webRoute, url_prefix='/web')
 app.register_blueprint(apiRoute, url_prefix='/api')
+app.register_blueprint(downloadRoute, url_prefix='/dld')
 app.register_blueprint(c2Route)
 
 def monitor_http_heartbeat():
