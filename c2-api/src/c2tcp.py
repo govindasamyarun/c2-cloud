@@ -2,7 +2,9 @@
 #
 # Author: Arun Govindasamy
 
+from distutils import command
 import json
+import pwd
 import re
 import time
 import socket
@@ -270,6 +272,33 @@ class C2TcpServer:
         self.logger_instance.info(f"capture_shell - shell: {repr(shell)}")
         return shell
 
+    def fingerprint(self, client_socket, shell, session_id):
+        # determine os type 
+        command = "pwd"
+        client_socket.sendall('{}\n'.format(command).encode('utf-8'))
+        function_name = "fingerprint"
+        string_match = shell
+        os_type = "NA"
+        while True:
+            epoch = datetime.utcnow()
+            receiver_response = self.receiver(function_name, client_socket, string_match, session_id, epoch)
+            self.logger_instance.info(f"fingerprint - session_id: {session_id}, receiver_response: {receiver_response}")
+            if receiver_response["status"] == "success" or receiver_response["status"] == "timedout":
+                output = self.cleanup_response(receiver_response["message"], command, shell)
+                self.logger_instance.info(f"fingerprint - output: {repr(output)}")
+                dt = self.common.current_datetime()
+                if ':\\' in output:
+                    os_type = "Windows"
+                    shell = ">"
+                else:
+                    os_type = "UNIX"
+                break
+            else:
+                self.logger_instance.info(f"fingerprint - session_id: {session_id} NA")
+                break
+        return (shell, os_type)
+        
+
     def init_session(self, session_id, client_socket, addr, shell):
         self.logger_instance.info(f"init_session")
         dt = self.common.current_datetime()
@@ -278,7 +307,8 @@ class C2TcpServer:
         commands_fifo_list = []
         session_key = "session_details_" + session_id
         self.clients[session_id] = client_socket
-        session_data = {"session_id": session_id, "session_type": "tcp", "os_type": "unix", "created_at": dt, "host_name": addr[0], "port": addr[1], "status": "Connected", "shell": shell, "user_name": "", "commands": commands_fifo_list}
+        (shell, os_type) = self.fingerprint(client_socket, shell, session_id)
+        session_data = {"session_id": session_id, "session_type": "tcp", "os_type": os_type, "created_at": dt, "host_name": addr[0], "port": addr[1], "status": "Connected", "shell": shell, "user_name": "", "commands": commands_fifo_list}
         self.active_session_ids.append(session_id)
         try:
             self.redis_client.publish_message(self.redis_channel_session, json.dumps(session_data))
@@ -288,7 +318,7 @@ class C2TcpServer:
         except Exception as e:
             self.logger_instance.info(f"init_session - failed to update the storage, error: {e}")
         del commands_fifo_list
-        return
+        return (shell, os_type)
 
     # function to handle each client separately
     def handle_client(self, client_socket, addr, session_id):
@@ -296,6 +326,7 @@ class C2TcpServer:
         command = 'echo "Hello World"'
         function_name = "handle_client"
         shell = ""
+        os_type = "NA"
         retry_count = 0
         session_key = "session_details_" + session_id
         session_data = self.redis_client.get_data(session_key)
@@ -312,9 +343,8 @@ class C2TcpServer:
                     return {"status": "error", "shell": "NA"}
                 if receiver_response["status"] == "success":
                     shell = self.capture_shell(receiver_response["message"])
+                    (shell, os_type) = self.init_session(session_id, client_socket, addr, shell)
                     session_data["shell"] = shell
-                    #self.redis_client.write_session_data(session_key, session_data)
-                    self.init_session(session_id, client_socket, addr, shell)
                     self.logger_instance.info(f"handle_client - session_id: {session_id} shell: {repr(shell)}")
                     return {"status": "success", "shell": shell}
                 elif receiver_response["status"] == "disconnected":
@@ -324,8 +354,8 @@ class C2TcpServer:
                     self.logger_instance.info(f"handle_client - session_id: {session_id} timedout")
                     shell = self.capture_shell(receiver_response["message"])
                     if shell:
+                        (shell, os_type) = self.init_session(session_id, client_socket, addr, shell)
                         session_data["shell"] = shell
-                        self.init_session(session_id, client_socket, addr, shell)
                         self.logger_instance.info(f"handle_client - timedout, shell: {repr(shell)}")
                         return {"status": "success", "shell": shell}
                     else:
