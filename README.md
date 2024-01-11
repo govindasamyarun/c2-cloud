@@ -1,6 +1,12 @@
 ## About The Project
 
-The C2 Cloud is a robust web-based C2 framework that makes the life of pen testers easier. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. 
+The C2 Cloud is a robust web-based C2 framework, designed to simplify the life of penetration testers. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. 
+
+The C2 Cloud supports the following reverse shells. 
+
+1. Reverse TCP
+2. Reverse HTTP
+3. Reverse HTTPS (configure it behind an LB) 
 
 ## Demo 
 https://youtu.be/hrHT_RDcGj8
