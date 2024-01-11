@@ -2,7 +2,11 @@
 
 The C2 Cloud is a robust web-based C2 framework, designed to simplify the life of penetration testers. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. 
 
-The C2 Cloud supports the following reverse shells. 
+Adversaries often use covert communication methods to conceal activities, making it challenging for security systems to detect and mitigate threats. Sophisticated monitoring, anomaly detection, and behavior analysis are required to mitigate these threats. 
+
+The C2 Cloud is an open-source platform with a user-friendly web interface that allows security professionals to conduct red teaming exercises efficiently. 
+
+Reverse shells support: 
 
 1. Reverse TCP
 2. Reverse HTTP
