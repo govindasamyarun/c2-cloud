@@ -1,6 +1,6 @@
 ## About The Project
 
-The C2 Cloud is a robust web-based C2 framework that makes the life of pen testers easier. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. Inspired by [Villain](https://github.com/t3l3machus/Villain), a CLI-based C2 developed by [Panagiotis Chartas](https://github.com/t3l3machus).
+The C2 Cloud is a robust web-based C2 framework that makes the life of pen testers easier. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. 
 
 ## Demo 
 https://youtu.be/hrHT_RDcGj8
@@ -30,6 +30,10 @@ https://youtu.be/hrHT_RDcGj8
 
 1. Clone the repo
 2. Execute docker-compose up -d to start the containers
+   Note: The c2-api service will not start up until the database is initialized. If you receive 500 errors, please try after some time. 
+
+## Credits 
+Inspired by [Villain](https://github.com/t3l3machus/Villain), a CLI-based C2 developed by [Panagiotis Chartas](https://github.com/t3l3machus).
 
 ## License
 
