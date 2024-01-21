@@ -2,9 +2,7 @@
 
 The C2 Cloud is a robust web-based C2 framework, designed to simplify the life of penetration testers. It allows easy access to compromised backdoors, just like accessing an EC2 instance in the AWS cloud. It can manage several simultaneous backdoor sessions with a user-friendly interface. 
 
-Ransomware simulation isn’t just about preventing attacks; it’s about building a resilient security infrastructure that adapts to emerging threats. Being proactive is the key to staying one step ahead in the cybersecurity landscape.
-
-C2 Cloud is open source. Even junior security analysts can confidently perform simulations, gaining valuable experience and contributing to the proactive defense posture of their organizations.
+C2 Cloud is open source. Security analysts can confidently perform simulations, gaining valuable experience and contributing to the proactive defense posture of their organizations. <br>
 
 Reverse shells support: 
 
@@ -13,7 +11,11 @@ Reverse shells support:
 3. Reverse HTTPS (configure it behind an LB) 
 
 ## Demo 
-https://youtu.be/hrHT_RDcGj8
+**C2 Cloud walkthrough:** https://youtu.be/hrHT_RDcGj8 <br>
+**Ransomware simulation using C2 Cloud:** https://youtu.be/LKaCDmLAyvM <br><br>
+Ransomware simulation isn’t just about preventing attacks; it’s about building a resilient security infrastructure that adapts to emerging threats. Being proactive is the key to staying one step ahead in the cybersecurity landscape. <br>
+<br>
+This demonstration is strictly for educational purposes. It serves to enhance understanding within the security community and is not intended for non-ethical activities. <br>
 
 ## Key Features
 🔒 **Anywhere Access:** Reach the C2 Cloud from any location. <br>
