@@ -79,6 +79,21 @@ services:
       - c2-redis-service
       - c2-api-service
 
+  c2-telegram-service:
+    container_name: c2-telegram-service
+    hostname: c2-telegram-service
+    build:
+      context: c2-telegram/.
+      dockerfile: Dockerfile
+    ports:
+     - 9989:9989
+    networks:
+      customnetwork:
+        ipv4_address: 172.24.0.7
+    depends_on:
+      - c2-db-service
+      - c2-redis-service
+
 networks:
   customnetwork:
     ipam:

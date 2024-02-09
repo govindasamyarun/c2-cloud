@@ -66,7 +66,7 @@ function fetchData(url) {
 // function to process the entered command 
 function processCommand(data) {
   data.forEach(clientData => {
-    const { session_id, priority, status, shell, command, command_date, response, response_date } = clientData;
+    const { session_id, shell, command, command_date, response, response_date } = clientData;
     if (url_session_id == session_id) {
       // display user command
       const userCommand_div = document.createElement('div');

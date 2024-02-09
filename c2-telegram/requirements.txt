@@ -1,0 +1,3 @@
+requests==2.31.0
+PyYAML==6.0
+redis==5.0.1

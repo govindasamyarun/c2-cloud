@@ -1,0 +1,19 @@
+websocket:
+  hostname: 0.0.0.0
+  port: 9999
+
+redis:
+  hostname: c2-redis-service
+  port: 6379
+  channel_session: c2_session
+  channel_payload: c2_payload
+  channel_telegram: c2_telegram
+
+telegram:
+  chat_id: <chat_id>
+  bot_name: <bot_name>
+  bot_username: <bot_username>
+  bot_token: <bot_token>
+
+logger:
+  level: INFO
