@@ -29,8 +29,6 @@ class Telegram:
         self.redis_payload_channel = config["redis"]["channel_payload"]
         self.redis_telegram_channel = config["redis"]["channel_telegram"]
         self.bot_chat_id = config["telegram"]["chat_id"]
-        self.bot_name = config["telegram"]["bot_name"]
-        self.bot_username = config["telegram"]["bot_username"]
         self.bot_token = config["telegram"]["bot_token"]
         self.redis_client = redis.StrictRedis(host=self.redis_host, port=self.redis_port, decode_responses=True)
         self.redis_session_client = redis.StrictRedis(host=self.redis_host, port=self.redis_port, db=0)
