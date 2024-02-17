@@ -8,14 +8,16 @@ Reverse shells support:
 
 1. Reverse TCP
 2. Reverse HTTP
-3. Reverse HTTPS (configure it behind an LB) 
+3. Reverse HTTPS (configure it behind an LB)
+4. Telegram C2 
 
 ## Demo 
 **C2 Cloud walkthrough:** https://youtu.be/hrHT_RDcGj8 <br>
 **Ransomware simulation using C2 Cloud:** https://youtu.be/LKaCDmLAyvM <br><br>
 Ransomware simulation isn’t just about preventing attacks; it’s about building a resilient security infrastructure that adapts to emerging threats. Being proactive is the key to staying one step ahead in the cybersecurity landscape. <br>
 <br>
-This demonstration is strictly for educational purposes. It serves to enhance understanding within the security community and is not intended for non-ethical activities. <br>
+This demonstration is strictly for educational purposes. It serves to enhance understanding within the security community and is not intended for non-ethical activities. <be>
+**Telegram C2:** 
 
 ## Key Features
 🔒 **Anywhere Access:** Reach the C2 Cloud from any location. <br>
@@ -32,7 +34,7 @@ This demonstration is strictly for educational purposes. It serves to enhance un
 💾 **Postgres DB:** Ensuring persistent storage for seamless continuity. <br>
 
 ## Architecture 
-<img width="1354" alt="c2_cloud_architecture_diagram" src="https://github.com/govindasamyarun/c2-cloud/assets/69586504/8349b580-89de-44dd-b18a-aa67d52ba39d">
+<img width="1354" alt="c2_cloud_architecture_diagram" src="https://github.com/govindasamyarun/c2-cloud/assets/69586504/cbe9f824-0cc1-4c07-9624-7c90bab69a4a">
 
 ## Application setup
 
@@ -41,7 +43,8 @@ This demonstration is strictly for educational purposes. It serves to enhance un
 * **Reverse TCP port:** 8888 <br>
 
 1. Clone the repo
-2. Execute docker-compose up -d to start the containers
+2. Optional: Update chait_id, bot_token in c2-telegram/config.yml
+3. Execute docker-compose up -d to start the containers
    Note: The c2-api service will not start up until the database is initialized. If you receive 500 errors, please try after some time. 
 
 ## Credits 
