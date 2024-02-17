@@ -75,7 +75,7 @@ def exec_command(session_id, command):
         dt = common.current_datetime()
         session_key = "session_details_" + session_id
         session_data = redis_client.get_data(session_key)
-        payload = {"command": command, "command_date": dt}
+        payload = {"session_id": session_id, "command": command, "command_date": dt}
         if session_data["session_type"] == "telegram_bot":
             print(f"telegram_bot, payload: {payload}")
             redis_client.publish_message("c2_telegram", json.dumps(payload))

