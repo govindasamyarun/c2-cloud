@@ -13,11 +13,8 @@ Reverse shells support:
 
 ## Demo 
 **C2 Cloud walkthrough:** https://youtu.be/hrHT_RDcGj8 <br>
-**Ransomware simulation using C2 Cloud:** https://youtu.be/LKaCDmLAyvM <br><br>
-Ransomware simulation isn’t just about preventing attacks; it’s about building a resilient security infrastructure that adapts to emerging threats. Being proactive is the key to staying one step ahead in the cybersecurity landscape. <br>
-<br>
-This demonstration is strictly for educational purposes. It serves to enhance understanding within the security community and is not intended for non-ethical activities. <be>
-**Telegram C2:** 
+**Ransomware simulation using C2 Cloud:** https://youtu.be/LKaCDmLAyvM <br>
+**Telegram C2:** https://youtu.be/WLQtF4hbCKk <br>
 
 ## Key Features
 🔒 **Anywhere Access:** Reach the C2 Cloud from any location. <br>
