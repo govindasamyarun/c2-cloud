@@ -11,8 +11,6 @@ redis:
 
 telegram:
   chat_id: <chat_id>
-  bot_name: <bot_name>
-  bot_username: <bot_username>
   bot_token: <bot_token>
 
 logger:
